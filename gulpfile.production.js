@@ -122,7 +122,7 @@ gulp.task('compress-images',function(cb){
 })
 gulp.task('build',['minify-css','minify-js','copy-fonts','copy-templates'],function(){
 	// use the last GIT commit hash as cache buster
-	gulp.start('bundle');
+	//gulp.start('bundle');
 	git.long(function(str){
 		gulp.src(['./src/CacheBuster.php'])
 		.pipe(replace("$cacheVersion = '';","$cacheVersion = '"+str+"';"))

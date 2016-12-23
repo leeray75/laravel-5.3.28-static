@@ -1,7 +1,6 @@
 (function (GlobalVariables) {
     var isProduction = GlobalVariables.environment === "production" ? true : false;
     System.config({
-        defaultExtension: isProduction ? 'min.js' : 'js',
         paths: {
             'npm:': isProduction ? '//unpkg.com/' : '/static/node_modules/',
         },

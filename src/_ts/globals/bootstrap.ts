@@ -1,35 +1,29 @@
-import $ from 'jquery';
+import "jquery";
 import 'bootstrap';
 
 class Globals{
-	private UsersModule: <any>;
+	
 	init(){
+		console.log("init");
 		this.initLoginLinks();
 	}
 	initLoginLinks(){
-		$(document).one('click', '.log-in-link', event => {
-			this.getUsersModule().then(users => {
-				users.login();
+		$(document).on('click', '.log-in-link', event => {
+			this.getUsersModule().then(function(module){
+				module.login();
 			});
 		});
 	}
 	getUsersModule(){
 		return new Promise( (resolve, reject) => {
-			if(this.UsersModule!=null){
+			if(this.UsersModule){
 				resolve(this.UsersModule)
 			}
 			else{
-			      let scriptPath = window.GlobalVariables.staticPath + (window.GlobalVariables.environment=='production' ? '/js/apps/users/users.combo.min.js' : '/js/apps/users/users.combo.js');
-			      $.getScript(scriptPath).then(()=>{
-						System.import('users.module').then(module => {
-							try{
-								this.UsersModule = new module.UsersModule();
-								resolve(this.UsersModule)
-							}catch(e){
-								console.error(e);
-								reject(e);
-							}
-						});
+			      let scriptPath = window.GlobalVariables.staticPath + (window.GlobalVariables.environment=='production' ? '/js/bundles/users.bundle.min.js' : '/js/bundles/users.bundle.js');
+			      $.getScript(scriptPath).then((module) => {
+			      	this.UsersModule = window.GlobalVariables.modules.users;
+			      	resolve(this.UsersModule);
 			      });
 			}
 		}) // end return Promise;
@@ -37,6 +31,8 @@ class Globals{
 }
 
 export function bootstrap() {
-	let globals = new Globals();
-	globals.init();
+	window.$ = $;
+	window.globals = new Globals();
+	window.globals.init();
+
 }

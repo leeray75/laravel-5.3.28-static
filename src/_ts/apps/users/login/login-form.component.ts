@@ -1,3 +1,4 @@
+import "jquery";
 import { Component, ViewChild, OnInit } from '@angular/core';
 import { User } from './user';
 import { LoginService } from './login.service';
@@ -25,7 +26,6 @@ export class LoginFormComponent implements OnInit  {
   	this.loginService
   		.send(this.user)
   		.then(response => {
-  			console.log("response:",response);
         if(response.status==="success"){
           this.$loginModal.modal('hide');
           this.alertMessage="";

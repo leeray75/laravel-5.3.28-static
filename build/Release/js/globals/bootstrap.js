@@ -1,59 +1,41 @@
-System.register(['jquery', 'bootstrap'], function(exports_1, context_1) {
-    "use strict";
-    var __moduleName = context_1 && context_1.id;
-    var jquery_1;
-    var Globals;
-    function bootstrap() {
-        var globals = new Globals();
-        globals.init();
+"use strict";
+require("jquery");
+require('bootstrap');
+var Globals = (function () {
+    function Globals() {
     }
-    exports_1("bootstrap", bootstrap);
-    return {
-        setters:[
-            function (jquery_1_1) {
-                jquery_1 = jquery_1_1;
-            },
-            function (_1) {}],
-        execute: function() {
-            Globals = (function () {
-                function Globals() {
-                }
-                Globals.prototype.init = function () {
-                    this.initLoginLinks();
-                };
-                Globals.prototype.initLoginLinks = function () {
-                    var _this = this;
-                    jquery_1.default(document).one('click', '.log-in-link', function (event) {
-                        _this.getUsersModule().then(function (users) {
-                            users.login();
-                        });
-                    });
-                };
-                Globals.prototype.getUsersModule = function () {
-                    var _this = this;
-                    return new Promise(function (resolve, reject) {
-                        if (_this.UsersModule != null) {
-                            resolve(_this.UsersModule);
-                        }
-                        else {
-                            var scriptPath = window.GlobalVariables.staticPath + (window.GlobalVariables.environment == 'production' ? '/js/apps/users/users.combo.min.js' : '/js/apps/users/users.combo.js');
-                            jquery_1.default.getScript(scriptPath).then(function () {
-                                System.import('users.module').then(function (module) {
-                                    try {
-                                        _this.UsersModule = new module.UsersModule();
-                                        resolve(_this.UsersModule);
-                                    }
-                                    catch (e) {
-                                        console.error(e);
-                                        reject(e);
-                                    }
-                                });
-                            });
-                        }
-                    }); // end return Promise;
-                };
-                return Globals;
-            }());
-        }
-    }
-});
+    Globals.prototype.init = function () {
+        console.log("init");
+        this.initLoginLinks();
+    };
+    Globals.prototype.initLoginLinks = function () {
+        var _this = this;
+        $(document).on('click', '.log-in-link', function (event) {
+            _this.getUsersModule().then(function (module) {
+                module.login();
+            });
+        });
+    };
+    Globals.prototype.getUsersModule = function () {
+        var _this = this;
+        return new Promise(function (resolve, reject) {
+            if (_this.UsersModule) {
+                resolve(_this.UsersModule);
+            }
+            else {
+                var scriptPath = window.GlobalVariables.staticPath + (window.GlobalVariables.environment == 'production' ? '/js/bundles/users.bundle.min.js' : '/js/bundles/users.bundle.js');
+                $.getScript(scriptPath).then(function (module) {
+                    _this.UsersModule = window.GlobalVariables.modules.users;
+                    resolve(_this.UsersModule);
+                });
+            }
+        }); // end return Promise;
+    };
+    return Globals;
+}());
+function bootstrap() {
+    window.$ = $;
+    window.globals = new Globals();
+    window.globals.init();
+}
+exports.bootstrap = bootstrap;
