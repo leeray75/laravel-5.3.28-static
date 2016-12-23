@@ -5,6 +5,8 @@ var Homepage = (function () {
         this.initClock();
     };
     Homepage.prototype.initClock = function () {
+        var clock = $('#clock');
+        console.log('clock:', clock);
         var clockEl = document.querySelector('#clock');
         var hoursEl = clockEl.querySelector('.hours');
         var minutesEl = clockEl.querySelector('.minutes');

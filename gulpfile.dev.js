@@ -20,6 +20,7 @@ var concat = require('gulp-concat');
 var rename = require('gulp-rename');
 var uglify = require('gulp-uglify');
 
+var jspm = require('gulp-jspm');
 
 var htmlmin = require('gulp-html-minifier');
 var _scssFiles = 'src/_scss/**/*.scss';
@@ -77,16 +78,14 @@ gulp.task('typescript', function() {
     var tsTask = gulp.src(_tsFiles )
         .pipe(tsProject())
         .pipe(gulp.dest('build/dev/js'));
-	
 	return merge(tasks, tsTask);
-
 });
 
 
 
 //Watch task
 gulp.task('watch', function() {
-	console.log("watching _scss and _ts files");
+	console.log("watch task");
     watch(_scssFiles, function () {
         gulp.start("sass");
     });	
@@ -96,6 +95,10 @@ gulp.task('watch', function() {
 
 	watch('src/templates/**/*',function(){
 		gulp.start('copy-templates');
+	})
+
+	watch('build/dev/js/lib/**/*.js',function(){
+		gulp.start('bundle');
 	})
 });
 
@@ -121,7 +124,19 @@ gulp.task('copy-templates', function(cb) {
 });
 
 
-gulp.task('init',['sass', 'typescript', 'copy-templates','copy-fonts','watch'],function(){});
+gulp.task('bundle',function(cb){
+	console.log('jspm: bundling');
+	return gulp.src('build/dev/js/lib/main.js')
+		.pipe(jspm({
+			fileName: 'global'
+		}))
+		.pipe(gulp.dest('build/dev/js/'));
+});
+
+gulp.task('init',['sass', 'typescript', 'copy-templates','copy-fonts'],function(){	
+	gulp.start("bundle");
+	gulp.start("watch");
+});
 
 
 gulp.task('default', ['clean-dev'],function(){

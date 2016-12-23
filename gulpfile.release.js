@@ -19,7 +19,7 @@ var merge = require('merge-stream');
 var concat = require('gulp-concat');
 var rename = require('gulp-rename');
 var uglify = require('gulp-uglify');
-
+var jspm = require('gulp-jspm');
 
 var htmlmin = require('gulp-html-minifier');
 var _scssFiles = 'src/_scss/**/*.scss';
@@ -104,9 +104,19 @@ gulp.task('copy-css', function(cb) {
     .pipe(gulp.dest('./build/Release/css'));
 });
 
+gulp.task('bundle',function(cb){
+	console.log('jspm: bundling');
+	return gulp.src('build/Release/js/lib/main.js')
+		.pipe(jspm({
+			fileName: 'global.min',
+			minify: true
+		}))
+		.pipe(gulp.dest('build/Release/js/'));
+});
 
 gulp.task('build',['minify-css','minify-js','copy-fonts','copy-templates'],function(){
 	// use the last GIT commit hash as cache buster
+	gulp.start('bundle');
 	git.long(function(str){
 		gulp.src(['./src/CacheBuster.php'])
 		.pipe(replace("$cacheVersion = '';","$cacheVersion = '"+str+"';"))

@@ -4,6 +4,8 @@ class Homepage{
     this.initClock();
   }
   initClock(): void{
+    let clock = $('#clock');
+    console.log('clock:',clock);
     let clockEl = <HTMLElement>document.querySelector('#clock');
     let hoursEl = <HTMLElement>clockEl.querySelector('.hours');
     let minutesEl = <HTMLElement>clockEl.querySelector('.minutes');
