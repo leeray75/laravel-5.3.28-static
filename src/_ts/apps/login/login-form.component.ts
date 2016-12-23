@@ -15,26 +15,26 @@ export class LoginFormComponent implements OnInit  {
 
   constructor(private loginService: LoginService){}
   ngOnInit(): void{
-    console.log("login form init 3");
     this.$loginModal = $('#login-modal').modal('hide');
-    this.initEventOpener();
-    this.loginModal = <HTMLElement> document.getElementById('login-modal');
-  }
-  initEventOpener(){
-    let openEl = <HTMLElement>document.querySelector('.log-in-link');
-    console.log("openEl:",openEl);
-    openEl.addEventListener('click',event => {
-      console.log("click:",event);
-      console.log("this.loginModal",this.$loginModal);
+    $(document).on('click', '.log-in-link', event => {
       this.$loginModal.modal('show');
-    });
+    })
   }
+
   sendLogin(){
   	this.loginService
   		.send(this.user)
   		.then(response => {
-  			this.alertMessage = response.message;
-  			this.user.reset();
+  			console.log("response:",response);
+        if(response.status==="success"){
+          this.$loginModal.modal('hide');
+          this.alertMessage="";
+          this.user.reset();
+        }
+        else{
+          this.alertMessage=response.message;
+        }
+  			
   		})
   }
 }

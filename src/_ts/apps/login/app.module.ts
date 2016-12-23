@@ -4,14 +4,14 @@ import { FormsModule }    from '@angular/forms';
 import { HttpModule }    from '@angular/http';
 import { LoginService } from './login.service';
 import { LoginFormComponent }  from './login-form.component';
-import { AlertModule, ModalModule } from 'ng2-bootstrap/ng2-bootstrap';
+import { AlertModule } from 'ng2-bootstrap/ng2-bootstrap';
 
 @NgModule({
   imports: [
     BrowserModule,
     FormsModule,
     HttpModule,
-   //ModalModule 
+    AlertModule
     
   ],
   declarations: [

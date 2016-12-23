@@ -31,18 +31,9 @@ System.register(['@angular/core', './user', './login.service'], function(exports
                     this.alertMessage = "";
                 }
                 LoginFormComponent.prototype.ngOnInit = function () {
-                    console.log("login form init 3");
-                    this.$loginModal = $('#login-modal').modal('hide');
-                    this.initEventOpener();
-                    this.loginModal = document.getElementById('login-modal');
-                };
-                LoginFormComponent.prototype.initEventOpener = function () {
                     var _this = this;
-                    var openEl = document.querySelector('.log-in-link');
-                    console.log("openEl:", openEl);
-                    openEl.addEventListener('click', function (event) {
-                        console.log("click:", event);
-                        console.log("this.loginModal", _this.$loginModal);
+                    this.$loginModal = $('#login-modal').modal('hide');
+                    $(document).on('click', '.log-in-link', function (event) {
                         _this.$loginModal.modal('show');
                     });
                 };
@@ -51,8 +42,15 @@ System.register(['@angular/core', './user', './login.service'], function(exports
                     this.loginService
                         .send(this.user)
                         .then(function (response) {
-                        _this.alertMessage = response.message;
-                        _this.user.reset();
+                        console.log("response:", response);
+                        if (response.status === "success") {
+                            _this.$loginModal.modal('hide');
+                            _this.alertMessage = "";
+                            _this.user.reset();
+                        }
+                        else {
+                            _this.alertMessage = response.message;
+                        }
                     });
                 };
                 __decorate([

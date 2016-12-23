@@ -1,8 +1,8 @@
 <section id="contact" class="container">
   <h1>Contact UI Deliverables</h1>
-<alert *ngIf="alertMessage" type="success">
-  <strong>{{alertMessage}}</strong> 
-</alert>
+  <alert *ngIf="alertMessage" type="success">
+    <strong>{{alertMessage}}</strong> 
+  </alert>
   <form *ngIf="!alertMessage" (submit)="sendEmail()">
 
     <div class="form-group">

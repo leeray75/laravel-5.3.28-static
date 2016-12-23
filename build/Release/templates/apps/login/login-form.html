@@ -3,6 +3,9 @@
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
                 <div class="panel-heading">Login</div>
+                <alert *ngIf="alertMessage" type="danger">
+                  <strong>{{alertMessage}}</strong> 
+                </alert>
                 <div class="panel-body">
                     <form class="form-horizontal" role="form" method="POST"  (submit)="sendLogin()">
                         <div class="form-group">
@@ -10,7 +13,6 @@
 
                             <div class="col-md-6">
                                 <input [(ngModel)]="user.email" id="email" type="email" class="form-control" name="email" required autofocus>
-
                                     <span *ngIf="user.errors.email" class="help-block">
                                         <strong>{{ user.errors.email }}</strong>
                                     </span>

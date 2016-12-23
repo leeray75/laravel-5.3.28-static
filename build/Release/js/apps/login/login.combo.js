@@ -99,18 +99,9 @@ System.register("login-form.component", ['@angular/core', "user", "login.service
                     this.alertMessage = "";
                 }
                 LoginFormComponent.prototype.ngOnInit = function () {
-                    console.log("login form init 3");
-                    this.$loginModal = $('#login-modal').modal('hide');
-                    this.initEventOpener();
-                    this.loginModal = document.getElementById('login-modal');
-                };
-                LoginFormComponent.prototype.initEventOpener = function () {
                     var _this = this;
-                    var openEl = document.querySelector('.log-in-link');
-                    console.log("openEl:", openEl);
-                    openEl.addEventListener('click', function (event) {
-                        console.log("click:", event);
-                        console.log("this.loginModal", _this.$loginModal);
+                    this.$loginModal = $('#login-modal').modal('hide');
+                    $(document).on('click', '.log-in-link', function (event) {
                         _this.$loginModal.modal('show');
                     });
                 };
@@ -119,8 +110,15 @@ System.register("login-form.component", ['@angular/core', "user", "login.service
                     this.loginService
                         .send(this.user)
                         .then(function (response) {
-                        _this.alertMessage = response.message;
-                        _this.user.reset();
+                        console.log("response:", response);
+                        if (response.status === "success") {
+                            _this.$loginModal.modal('hide');
+                            _this.alertMessage = "";
+                            _this.user.reset();
+                        }
+                        else {
+                            _this.alertMessage = response.message;
+                        }
                     });
                 };
                 __decorate([
@@ -140,10 +138,10 @@ System.register("login-form.component", ['@angular/core', "user", "login.service
         }
     }
 });
-System.register("app.module", ['@angular/core', '@angular/platform-browser', '@angular/forms', '@angular/http', "login.service", "login-form.component"], function(exports_4, context_4) {
+System.register("app.module", ['@angular/core', '@angular/platform-browser', '@angular/forms', '@angular/http', "login.service", "login-form.component", 'ng2-bootstrap/ng2-bootstrap'], function(exports_4, context_4) {
     "use strict";
     var __moduleName = context_4 && context_4.id;
-    var core_3, platform_browser_1, forms_1, http_2, login_service_2, login_form_component_1;
+    var core_3, platform_browser_1, forms_1, http_2, login_service_2, login_form_component_1, ng2_bootstrap_1;
     var AppModule;
     return {
         setters:[
@@ -164,6 +162,9 @@ System.register("app.module", ['@angular/core', '@angular/platform-browser', '@a
             },
             function (login_form_component_1_1) {
                 login_form_component_1 = login_form_component_1_1;
+            },
+            function (ng2_bootstrap_1_1) {
+                ng2_bootstrap_1 = ng2_bootstrap_1_1;
             }],
         execute: function() {
             AppModule = (function () {
@@ -175,6 +176,7 @@ System.register("app.module", ['@angular/core', '@angular/platform-browser', '@a
                             platform_browser_1.BrowserModule,
                             forms_1.FormsModule,
                             http_2.HttpModule,
+                            ng2_bootstrap_1.AlertModule
                         ],
                         declarations: [
                             login_form_component_1.LoginFormComponent
