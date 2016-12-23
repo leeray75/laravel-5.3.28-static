@@ -90,12 +90,14 @@ System.register("contact-us.component", ['@angular/core', "contact", "contact-us
                 function ContactUsComponent(contactUsService) {
                     this.contactUsService = contactUsService;
                     this.contact = new contact_1.Contact();
+                    this.alertMessage = "";
                 }
                 ContactUsComponent.prototype.sendEmail = function () {
                     var _this = this;
                     this.contactUsService
                         .send(this.contact)
                         .then(function (response) {
+                        _this.alertMessage = response.message;
                         _this.contact.reset();
                     });
                 };
@@ -112,10 +114,10 @@ System.register("contact-us.component", ['@angular/core', "contact", "contact-us
         }
     }
 });
-System.register("app.module", ['@angular/core', '@angular/platform-browser', '@angular/forms', '@angular/http', "contact-us.service", 'common/rxjs-extensions', "contact-us.component"], function(exports_4, context_4) {
+System.register("app.module", ['@angular/core', '@angular/platform-browser', '@angular/forms', '@angular/http', "contact-us.service", "contact-us.component", 'ng2-bootstrap/ng2-bootstrap'], function(exports_4, context_4) {
     "use strict";
     var __moduleName = context_4 && context_4.id;
-    var core_3, platform_browser_1, forms_1, http_2, contact_us_service_2, contact_us_component_1;
+    var core_3, platform_browser_1, forms_1, http_2, contact_us_service_2, contact_us_component_1, ng2_bootstrap_1;
     var AppModule;
     return {
         setters:[
@@ -134,9 +136,11 @@ System.register("app.module", ['@angular/core', '@angular/platform-browser', '@a
             function (contact_us_service_2_1) {
                 contact_us_service_2 = contact_us_service_2_1;
             },
-            function (_2) {},
             function (contact_us_component_1_1) {
                 contact_us_component_1 = contact_us_component_1_1;
+            },
+            function (ng2_bootstrap_1_1) {
+                ng2_bootstrap_1 = ng2_bootstrap_1_1;
             }],
         execute: function() {
             AppModule = (function () {
@@ -148,6 +152,7 @@ System.register("app.module", ['@angular/core', '@angular/platform-browser', '@a
                             platform_browser_1.BrowserModule,
                             forms_1.FormsModule,
                             http_2.HttpModule,
+                            ng2_bootstrap_1.AlertModule
                         ],
                         declarations: [
                             contact_us_component_1.ContactUsComponent

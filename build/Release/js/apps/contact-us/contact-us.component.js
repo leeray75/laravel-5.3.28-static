@@ -28,12 +28,14 @@ System.register(['@angular/core', './contact', './contact-us.service'], function
                 function ContactUsComponent(contactUsService) {
                     this.contactUsService = contactUsService;
                     this.contact = new contact_1.Contact();
+                    this.alertMessage = "";
                 }
                 ContactUsComponent.prototype.sendEmail = function () {
                     var _this = this;
                     this.contactUsService
                         .send(this.contact)
                         .then(function (response) {
+                        _this.alertMessage = response.message;
                         _this.contact.reset();
                     });
                 };

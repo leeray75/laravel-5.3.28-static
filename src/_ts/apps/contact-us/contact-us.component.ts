@@ -7,11 +7,13 @@ import { ContactUsService } from './contact-us.service';
 })
 export class ContactUsComponent {
   contact = new Contact();
+  alertMessage = "";
   constructor(private contactUsService: ContactUsService){}
   sendEmail(){
   	this.contactUsService
   		.send(this.contact)
   		.then(response => {
+  			this.alertMessage = response.message;
   			this.contact.reset();
   		})
   }

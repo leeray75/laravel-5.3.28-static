@@ -2,7 +2,8 @@
   let isProduction = GlobalVariables.environment==="production" ? true : false;
   System.config({
     paths: {
-      'npm:': isProduction ? '//unpkg.com/' : '/static/node_modules/'
+
+      'npm:': isProduction ? '//unpkg.com/' : '/static/node_modules/',
     },
     map: {
       // our app is within the app folder
@@ -19,7 +20,9 @@
       '@angular/router': 'npm:@angular/router/bundles/router.umd.js',
       '@angular/forms': 'npm:@angular/forms/bundles/forms.umd.js',
 
-      '@ng-bootstrap/ng-bootstrap': 'npm:@ng-bootstrap/ng-bootstrap/bundles/ng-bootstrap.js',
+      //'@ng-bootstrap/ng-bootstrap': 'npm:@ng-bootstrap/ng-bootstrap/bundles/ng-bootstrap.js',
+      'moment': 'npm:moment/moment.js',
+      //'ng2-bootstrap': 'npm:ng2-bootstrap/bundles/ng2-bootstrap.umd.min.js',
       
       // other libraries
       'rxjs':  'npm:rxjs',
@@ -35,7 +38,7 @@
         defaultExtension: isProduction ? 'min.js' : 'js'
       },
       pages:{
-        
+
         defaultExtension: isProduction ? 'min.js' : 'js'
       },
       rxjs: {

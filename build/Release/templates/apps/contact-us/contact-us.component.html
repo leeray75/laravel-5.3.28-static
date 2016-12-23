@@ -1,25 +1,27 @@
 <section id="contact" class="container">
   <h1>Contact UI Deliverables</h1>
+<alert *ngIf="alertMessage" type="success">
+  <strong>{{alertMessage}}</strong> 
+</alert>
+  <form *ngIf="!alertMessage" (submit)="sendEmail()">
 
-<form (submit)="sendEmail()">
+    <div class="form-group">
+      <label>Your Name</label>
+      <input [(ngModel)]="contact.name" name="name" type="text" required class="form-control" placeholder="Your name">
+    </div>
 
-  <div class="form-group">
-    <label>Your Name</label>
-    <input [(ngModel)]="contact.name" name="name" type="text" required class="form-control" placeholder="Your name">
-  </div>
+    <div class="form-group">
+      <label>Your E-mail Address</label>
+      <input [(ngModel)]="contact.email" name="email" type="email" required class="form-control" placeholder="Your e-mail address">
+    </div>
 
-  <div class="form-group">
-    <label>Your E-mail Address</label>
-    <input [(ngModel)]="contact.email" name="email" type="email" required class="form-control" placeholder="Your e-mail address">
-  </div>
+    <div class="form-group">
+      <label>Your Message</label>
+      <textarea [(ngModel)]="contact.message" name="message" required class="form-control" placeholder="Your message"></textarea>
+    </div>
 
-  <div class="form-group">
-    <label>Your Message</label>
-    <textarea [(ngModel)]="contact.message" name="message" required class="form-control" placeholder="Your message"></textarea>
-  </div>
-
-  <div class="form-group cta-container">
-    <input type="submit" value="Contact Us" class="btn btn-primary">
-  </div>
-</form>
+    <div class="form-group cta-container">
+      <input type="submit" value="Contact Us" class="btn btn-primary">
+    </div>
+  </form>
 </section>
