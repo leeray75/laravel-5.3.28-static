@@ -11,7 +11,7 @@ export class LoginFormComponent implements OnInit  {
   @ViewChild('childModal') public childModal:ModalDirective;
   user = new User();
   alertMessage = "";
-  $loginModal: <any>;
+  $loginModal = null;
 
   constructor(private loginService: LoginService){}
   ngOnInit(): void{

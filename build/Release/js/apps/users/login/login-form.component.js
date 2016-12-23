@@ -29,6 +29,7 @@ System.register(['@angular/core', './user', './login.service'], function(exports
                     this.loginService = loginService;
                     this.user = new user_1.User();
                     this.alertMessage = "";
+                    this.$loginModal = null;
                 }
                 LoginFormComponent.prototype.ngOnInit = function () {
                     var _this = this;

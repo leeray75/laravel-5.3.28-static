@@ -97,6 +97,7 @@ System.register("login/login-form.component", ['@angular/core', "login/user", "l
                     this.loginService = loginService;
                     this.user = new user_1.User();
                     this.alertMessage = "";
+                    this.$loginModal = null;
                 }
                 LoginFormComponent.prototype.ngOnInit = function () {
                     var _this = this;
@@ -192,16 +193,13 @@ System.register("login/login.module", ['@angular/core', '@angular/platform-brows
         }
     }
 });
-System.register("users.module", ['@angular/core', "login/login.module", '@angular/platform-browser-dynamic'], function(exports_5, context_5) {
+System.register("users.module", ["login/login.module", '@angular/platform-browser-dynamic'], function(exports_5, context_5) {
     "use strict";
     var __moduleName = context_5 && context_5.id;
-    var core_4, login_module_1, platform_browser_dynamic_1;
-    var UserModule;
+    var login_module_1, platform_browser_dynamic_1;
+    var UsersModule;
     return {
         setters:[
-            function (core_4_1) {
-                core_4 = core_4_1;
-            },
             function (login_module_1_1) {
                 login_module_1 = login_module_1_1;
             },
@@ -209,61 +207,33 @@ System.register("users.module", ['@angular/core', "login/login.module", '@angula
                 platform_browser_dynamic_1 = platform_browser_dynamic_1_1;
             }],
         execute: function() {
-            UserModule = (function () {
-                function UserModule() {
+            UsersModule = (function () {
+                function UsersModule() {
                 }
-                UserModule.prototype.login = function () {
+                UsersModule.prototype.login = function () {
                     platform_browser_dynamic_1.platformBrowserDynamic().bootstrapModule(login_module_1.LoginModule);
                 };
-                UserModule = __decorate([
-                    core_4.NgModule({
-                        imports: [
-                            login_module_1.LoginModule
-                        ],
-                        declarations: [],
-                        providers: [],
-                        bootstrap: []
-                    }), 
-                    __metadata('design:paramtypes', [])
-                ], UserModule);
-                return UserModule;
+                return UsersModule;
             }());
-            exports_5("UserModule", UserModule);
+            exports_5("UsersModule", UsersModule);
             ;
         }
     }
 });
-System.register("main", ['@angular/platform-browser-dynamic', "users.module"], function(exports_6, context_6) {
+System.register("login/main", ['@angular/platform-browser-dynamic', "login/login.module"], function(exports_6, context_6) {
     "use strict";
     var __moduleName = context_6 && context_6.id;
-    var platform_browser_dynamic_2, users_module_1;
+    var platform_browser_dynamic_2, login_module_2;
     return {
         setters:[
             function (platform_browser_dynamic_2_1) {
                 platform_browser_dynamic_2 = platform_browser_dynamic_2_1;
             },
-            function (users_module_1_1) {
-                users_module_1 = users_module_1_1;
-            }],
-        execute: function() {
-            platform_browser_dynamic_2.platformBrowserDynamic().bootstrapModule(users_module_1.UsersModule);
-        }
-    }
-});
-System.register("login/main", ['@angular/platform-browser-dynamic', "login/login.module"], function(exports_7, context_7) {
-    "use strict";
-    var __moduleName = context_7 && context_7.id;
-    var platform_browser_dynamic_3, login_module_2;
-    return {
-        setters:[
-            function (platform_browser_dynamic_3_1) {
-                platform_browser_dynamic_3 = platform_browser_dynamic_3_1;
-            },
             function (login_module_2_1) {
                 login_module_2 = login_module_2_1;
             }],
         execute: function() {
-            platform_browser_dynamic_3.platformBrowserDynamic().bootstrapModule(login_module_2.LoginModule);
+            platform_browser_dynamic_2.platformBrowserDynamic().bootstrapModule(login_module_2.LoginModule);
         }
     }
 });

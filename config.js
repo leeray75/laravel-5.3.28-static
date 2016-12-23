@@ -18,7 +18,7 @@ System.config({
   },
 
   map: {
-    "@angular/common": "npm:@angular/common/bundles/common.umd.js",
+    "@angular/common": "npm:@angular/common@2.4.1",
     "@angular/compiler": "npm:@angular/compiler@2.4.1",
     "@angular/core": "npm:@angular/core@2.4.1",
     "@angular/forms": "npm:@angular/forms@2.4.1",
@@ -30,6 +30,7 @@ System.config({
     "bootstrap": "github:twbs/bootstrap@3.3.7",
     "core-js": "npm:core-js@2.4.1",
     "jquery": "npm:jquery@3.1.1",
+    "moment": "npm:moment@2.17.1",
     "ng2-bootstrap": "npm:ng2-bootstrap@1.1.13-1",
     "reflect-metadata": "npm:reflect-metadata@0.1.9",
     "rxjs": "npm:rxjs@5.0.2",

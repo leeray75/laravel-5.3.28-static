@@ -2,8 +2,8 @@ export class User{
 	email: string;
 	password: string;
 	errors = {
-		email: "";
-		password: "";
+		email: "",
+		password: ""
 	}
 	constructor(){}
 	reset(): void{

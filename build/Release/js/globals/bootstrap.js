@@ -17,7 +17,6 @@ System.register(['jquery', 'bootstrap'], function(exports_1, context_1) {
         execute: function() {
             Globals = (function () {
                 function Globals() {
-                    this.isLoginInit = false;
                 }
                 Globals.prototype.init = function () {
                     this.initLoginLinks();
@@ -25,32 +24,33 @@ System.register(['jquery', 'bootstrap'], function(exports_1, context_1) {
                 Globals.prototype.initLoginLinks = function () {
                     var _this = this;
                     jquery_1.default(document).one('click', '.log-in-link', function (event) {
-                        console.log("login link clicked", event);
-                        if (!_this.isLoginInit) {
-                            _this.getUsersModule().then(function (userModule) {
-                                _this.isLoginInit = true;
-                                userModule.login();
-                            });
-                        }
+                        _this.getUsersModule().then(function (users) {
+                            users.login();
+                        });
                     });
                 };
                 Globals.prototype.getUsersModule = function () {
+                    var _this = this;
                     return new Promise(function (resolve, reject) {
-                        if (window.GlobalVariables.modules.UserModule) {
-                            resolve(window.GlobalVariables.modules.UserModule);
+                        if (_this.UsersModule != null) {
+                            resolve(_this.UsersModule);
                         }
                         else {
-                            return System.import('app/users/users.module').then(function (module) {
-                                try {
-                                    window.GlobalVariables.modules.UserModule = new module.UserModule();
-                                    resolve(window.GlobalVariables.modules.UserModule);
-                                }
-                                catch (e) {
-                                    console.error(e);
-                                }
+                            var scriptPath = window.GlobalVariables.staticPath + (window.GlobalVariables.environment == 'production' ? '/js/apps/users/users.combo.min.js' : '/js/apps/users/users.combo.js');
+                            jquery_1.default.getScript(scriptPath).then(function () {
+                                System.import('users.module').then(function (module) {
+                                    try {
+                                        _this.UsersModule = new module.UsersModule();
+                                        resolve(_this.UsersModule);
+                                    }
+                                    catch (e) {
+                                        console.error(e);
+                                        reject(e);
+                                    }
+                                });
                             });
                         }
-                    });
+                    }); // end return Promise;
                 };
                 return Globals;
             }());
