@@ -114,6 +114,12 @@ gulp.task('bundle',function(cb){
 		.pipe(gulp.dest('build/Release/js/'));
 });
 
+gulp.task('compress-images',function(cb){
+	var smushit = require('gulp-smushit');
+    return gulp.src('_images/**/*.{jpg,png}')
+        .pipe(smushit())
+        .pipe(gulp.dest('images'));
+})
 gulp.task('build',['minify-css','minify-js','copy-fonts','copy-templates'],function(){
 	// use the last GIT commit hash as cache buster
 	gulp.start('bundle');
@@ -122,7 +128,6 @@ gulp.task('build',['minify-css','minify-js','copy-fonts','copy-templates'],funct
 		.pipe(replace("$cacheVersion = '';","$cacheVersion = '"+str+"';"))
 		.pipe(gulp.dest('./build'));
 	})
-	
 });
 
 gulp.task('clean-release', function(cb) {
@@ -134,4 +139,5 @@ gulp.task('clean-release', function(cb) {
 gulp.task('default', ['clean-release'],function(){
 	console.log("Start Build");
 	gulp.start('build');
+	gulp.start('compress-images');
 });
