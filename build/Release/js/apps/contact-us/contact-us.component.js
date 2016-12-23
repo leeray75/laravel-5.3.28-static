@@ -1,4 +1,4 @@
-System.register(['@angular/core'], function(exports_1, context_1) {
+System.register(['@angular/core', './contact', './contact-us.service'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,23 +10,39 @@ System.register(['@angular/core'], function(exports_1, context_1) {
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1;
+    var core_1, contact_1, contact_us_service_1;
     var ContactUsComponent;
     return {
         setters:[
             function (core_1_1) {
                 core_1 = core_1_1;
+            },
+            function (contact_1_1) {
+                contact_1 = contact_1_1;
+            },
+            function (contact_us_service_1_1) {
+                contact_us_service_1 = contact_us_service_1_1;
             }],
         execute: function() {
             ContactUsComponent = (function () {
-                function ContactUsComponent() {
+                function ContactUsComponent(contactUsService) {
+                    this.contactUsService = contactUsService;
+                    this.contact = new contact_1.Contact();
                 }
+                ContactUsComponent.prototype.sendEmail = function () {
+                    var _this = this;
+                    this.contactUsService
+                        .send(this.contact)
+                        .then(function (response) {
+                        _this.contact.reset();
+                    });
+                };
                 ContactUsComponent = __decorate([
                     core_1.Component({
                         selector: 'contact-us',
                         templateUrl: window.GlobalVariables.app.templateSrc + 'contact-us.component.html'
                     }), 
-                    __metadata('design:paramtypes', [])
+                    __metadata('design:paramtypes', [contact_us_service_1.ContactUsService])
                 ], ContactUsComponent);
                 return ContactUsComponent;
             }());

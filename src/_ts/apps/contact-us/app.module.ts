@@ -2,7 +2,8 @@ import { NgModule }       from '@angular/core';
 import { BrowserModule }  from '@angular/platform-browser';
 import { FormsModule }    from '@angular/forms';
 import { HttpModule }    from '@angular/http';
-//import './rxjs-extensions';
+import { ContactUsService } from './contact-us.service';
+import 'common/rxjs-extensions';
 
 //import { AppRoutingModule }     from './app-routing.module';
 import { ContactUsComponent }         from './contact-us.component';
@@ -17,7 +18,7 @@ import { ContactUsComponent }         from './contact-us.component';
   declarations: [
     ContactUsComponent
   ],
-  providers: [],
+  providers: [ ContactUsService],
   bootstrap: [ ContactUsComponent ]
 })
 export class AppModule { }
