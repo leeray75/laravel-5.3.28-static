@@ -15,7 +15,7 @@ export class LoginFormComponent implements OnInit  {
 
   constructor(private loginService: LoginService){}
   ngOnInit(): void{
-    this.$loginModal = $('#login-modal').modal('hide');
+    this.$loginModal = $('#login-modal').modal();
     $(document).on('click', '.log-in-link', event => {
       this.$loginModal.modal('show');
     })

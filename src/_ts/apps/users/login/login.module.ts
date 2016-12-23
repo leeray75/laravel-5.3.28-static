@@ -12,7 +12,6 @@ import { AlertModule } from 'ng2-bootstrap/ng2-bootstrap';
     FormsModule,
     HttpModule,
     AlertModule
-    
   ],
   declarations: [
     LoginFormComponent
@@ -20,6 +19,6 @@ import { AlertModule } from 'ng2-bootstrap/ng2-bootstrap';
   providers: [ LoginService],
   bootstrap: [ LoginFormComponent ]
 })
-export class AppModule { }
+export class LoginModule { }
 
 

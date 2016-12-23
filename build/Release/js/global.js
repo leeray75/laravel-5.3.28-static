@@ -8434,15 +8434,60 @@ System.registerDynamic("github:twbs/bootstrap@3.3.7.js", ["github:twbs/bootstrap
   module.exports = $__require("github:twbs/bootstrap@3.3.7/js/bootstrap.js");
   return module.exports;
 });
-System.register("build/dev/js/globals/bootstrap.js", ["github:twbs/bootstrap@3.3.7.js"], function (exports_1, context_1) {
+System.register('build/dev/js/globals/bootstrap.js', ['npm:jquery@3.1.1.js', 'github:twbs/bootstrap@3.3.7.js'], function (exports_1, context_1) {
     "use strict";
 
     var __moduleName = context_1 && context_1.id;
-    function bootstrap() {}
+    var jquery_1;
+    var Globals;
+    function bootstrap() {
+        var globals = new Globals();
+        globals.init();
+    }
     exports_1("bootstrap", bootstrap);
     return {
-        setters: [function (_1) {}],
-        execute: function () {}
+        setters: [function (jquery_1_1) {
+            jquery_1 = jquery_1_1;
+        }, function (_1) {}],
+        execute: function () {
+            Globals = function () {
+                function Globals() {
+                    this.isLoginInit = false;
+                }
+                Globals.prototype.init = function () {
+                    this.initLoginLinks();
+                };
+                Globals.prototype.initLoginLinks = function () {
+                    var _this = this;
+                    jquery_1.default(document).one('click', '.log-in-link', function (event) {
+                        console.log("login link clicked", event);
+                        if (!_this.isLoginInit) {
+                            _this.getUsersModule().then(function (userModule) {
+                                _this.isLoginInit = true;
+                                userModule.login();
+                            });
+                        }
+                    });
+                };
+                Globals.prototype.getUsersModule = function () {
+                    return new Promise(function (resolve, reject) {
+                        if (window.GlobalVariables.modules.UserModule) {
+                            resolve(window.GlobalVariables.modules.UserModule);
+                        } else {
+                            return System.import('app/users/users.module').then(function (module) {
+                                try {
+                                    window.GlobalVariables.modules.UserModule = new module.UserModule();
+                                    resolve(window.GlobalVariables.modules.UserModule);
+                                } catch (e) {
+                                    console.error(e);
+                                }
+                            });
+                        }
+                    });
+                };
+                return Globals;
+            }();
+        }
     };
 });
 System.register("build/dev/js/globals/main.js", ["build/dev/js/globals/bootstrap.js"], function (exports_1, context_1) {

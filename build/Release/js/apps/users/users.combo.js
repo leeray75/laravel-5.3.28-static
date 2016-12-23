@@ -7,7 +7,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-System.register("user", [], function(exports_1, context_1) {
+System.register("login/user", [], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var User;
@@ -31,7 +31,7 @@ System.register("user", [], function(exports_1, context_1) {
         }
     }
 });
-System.register("login.service", ['@angular/core', '@angular/http', 'rxjs/add/operator/toPromise'], function(exports_2, context_2) {
+System.register("login/login.service", ['@angular/core', '@angular/http', 'rxjs/add/operator/toPromise'], function(exports_2, context_2) {
     "use strict";
     var __moduleName = context_2 && context_2.id;
     var core_1, http_1;
@@ -75,7 +75,7 @@ System.register("login.service", ['@angular/core', '@angular/http', 'rxjs/add/op
         }
     }
 });
-System.register("login-form.component", ['@angular/core', "user", "login.service"], function(exports_3, context_3) {
+System.register("login/login-form.component", ['@angular/core', "login/user", "login/login.service"], function(exports_3, context_3) {
     "use strict";
     var __moduleName = context_3 && context_3.id;
     var core_2, user_1, login_service_1;
@@ -100,7 +100,7 @@ System.register("login-form.component", ['@angular/core', "user", "login.service
                 }
                 LoginFormComponent.prototype.ngOnInit = function () {
                     var _this = this;
-                    this.$loginModal = $('#login-modal').modal('hide');
+                    this.$loginModal = $('#login-modal').modal();
                     $(document).on('click', '.log-in-link', function (event) {
                         _this.$loginModal.modal('show');
                     });
@@ -138,11 +138,11 @@ System.register("login-form.component", ['@angular/core', "user", "login.service
         }
     }
 });
-System.register("app.module", ['@angular/core', '@angular/platform-browser', '@angular/forms', '@angular/http', "login.service", "login-form.component", 'ng2-bootstrap/ng2-bootstrap'], function(exports_4, context_4) {
+System.register("login/login.module", ['@angular/core', '@angular/platform-browser', '@angular/forms', '@angular/http', "login/login.service", "login/login-form.component", 'ng2-bootstrap/ng2-bootstrap'], function(exports_4, context_4) {
     "use strict";
     var __moduleName = context_4 && context_4.id;
     var core_3, platform_browser_1, forms_1, http_2, login_service_2, login_form_component_1, ng2_bootstrap_1;
-    var AppModule;
+    var LoginModule;
     return {
         setters:[
             function (core_3_1) {
@@ -167,10 +167,10 @@ System.register("app.module", ['@angular/core', '@angular/platform-browser', '@a
                 ng2_bootstrap_1 = ng2_bootstrap_1_1;
             }],
         execute: function() {
-            AppModule = (function () {
-                function AppModule() {
+            LoginModule = (function () {
+                function LoginModule() {
                 }
-                AppModule = __decorate([
+                LoginModule = __decorate([
                     core_3.NgModule({
                         imports: [
                             platform_browser_1.BrowserModule,
@@ -185,27 +185,85 @@ System.register("app.module", ['@angular/core', '@angular/platform-browser', '@a
                         bootstrap: [login_form_component_1.LoginFormComponent]
                     }), 
                     __metadata('design:paramtypes', [])
-                ], AppModule);
-                return AppModule;
+                ], LoginModule);
+                return LoginModule;
             }());
-            exports_4("AppModule", AppModule);
+            exports_4("LoginModule", LoginModule);
         }
     }
 });
-System.register("main", ['@angular/platform-browser-dynamic', "app.module"], function(exports_5, context_5) {
+System.register("users.module", ['@angular/core', "login/login.module", '@angular/platform-browser-dynamic'], function(exports_5, context_5) {
     "use strict";
     var __moduleName = context_5 && context_5.id;
-    var platform_browser_dynamic_1, app_module_1;
+    var core_4, login_module_1, platform_browser_dynamic_1;
+    var UserModule;
     return {
         setters:[
+            function (core_4_1) {
+                core_4 = core_4_1;
+            },
+            function (login_module_1_1) {
+                login_module_1 = login_module_1_1;
+            },
             function (platform_browser_dynamic_1_1) {
                 platform_browser_dynamic_1 = platform_browser_dynamic_1_1;
-            },
-            function (app_module_1_1) {
-                app_module_1 = app_module_1_1;
             }],
         execute: function() {
-            platform_browser_dynamic_1.platformBrowserDynamic().bootstrapModule(app_module_1.AppModule);
+            UserModule = (function () {
+                function UserModule() {
+                }
+                UserModule.prototype.login = function () {
+                    platform_browser_dynamic_1.platformBrowserDynamic().bootstrapModule(login_module_1.LoginModule);
+                };
+                UserModule = __decorate([
+                    core_4.NgModule({
+                        imports: [
+                            login_module_1.LoginModule
+                        ],
+                        declarations: [],
+                        providers: [],
+                        bootstrap: []
+                    }), 
+                    __metadata('design:paramtypes', [])
+                ], UserModule);
+                return UserModule;
+            }());
+            exports_5("UserModule", UserModule);
+            ;
+        }
+    }
+});
+System.register("main", ['@angular/platform-browser-dynamic', "users.module"], function(exports_6, context_6) {
+    "use strict";
+    var __moduleName = context_6 && context_6.id;
+    var platform_browser_dynamic_2, users_module_1;
+    return {
+        setters:[
+            function (platform_browser_dynamic_2_1) {
+                platform_browser_dynamic_2 = platform_browser_dynamic_2_1;
+            },
+            function (users_module_1_1) {
+                users_module_1 = users_module_1_1;
+            }],
+        execute: function() {
+            platform_browser_dynamic_2.platformBrowserDynamic().bootstrapModule(users_module_1.UsersModule);
+        }
+    }
+});
+System.register("login/main", ['@angular/platform-browser-dynamic', "login/login.module"], function(exports_7, context_7) {
+    "use strict";
+    var __moduleName = context_7 && context_7.id;
+    var platform_browser_dynamic_3, login_module_2;
+    return {
+        setters:[
+            function (platform_browser_dynamic_3_1) {
+                platform_browser_dynamic_3 = platform_browser_dynamic_3_1;
+            },
+            function (login_module_2_1) {
+                login_module_2 = login_module_2_1;
+            }],
+        execute: function() {
+            platform_browser_dynamic_3.platformBrowserDynamic().bootstrapModule(login_module_2.LoginModule);
         }
     }
 });

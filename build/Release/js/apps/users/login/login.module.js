@@ -11,7 +11,7 @@ System.register(['@angular/core', '@angular/platform-browser', '@angular/forms',
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
     var core_1, platform_browser_1, forms_1, http_1, login_service_1, login_form_component_1, ng2_bootstrap_1;
-    var AppModule;
+    var LoginModule;
     return {
         setters:[
             function (core_1_1) {
@@ -36,10 +36,10 @@ System.register(['@angular/core', '@angular/platform-browser', '@angular/forms',
                 ng2_bootstrap_1 = ng2_bootstrap_1_1;
             }],
         execute: function() {
-            AppModule = (function () {
-                function AppModule() {
+            LoginModule = (function () {
+                function LoginModule() {
                 }
-                AppModule = __decorate([
+                LoginModule = __decorate([
                     core_1.NgModule({
                         imports: [
                             platform_browser_1.BrowserModule,
@@ -54,10 +54,10 @@ System.register(['@angular/core', '@angular/platform-browser', '@angular/forms',
                         bootstrap: [login_form_component_1.LoginFormComponent]
                     }), 
                     __metadata('design:paramtypes', [])
-                ], AppModule);
-                return AppModule;
+                ], LoginModule);
+                return LoginModule;
             }());
-            exports_1("AppModule", AppModule);
+            exports_1("LoginModule", LoginModule);
         }
     }
 });

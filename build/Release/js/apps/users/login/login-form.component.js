@@ -32,7 +32,7 @@ System.register(['@angular/core', './user', './login.service'], function(exports
                 }
                 LoginFormComponent.prototype.ngOnInit = function () {
                     var _this = this;
-                    this.$loginModal = $('#login-modal').modal('hide');
+                    this.$loginModal = $('#login-modal').modal();
                     $(document).on('click', '.log-in-link', function (event) {
                         _this.$loginModal.modal('show');
                     });

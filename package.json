@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "gulp --gulpfile gulpfile.dev.js",
-    "release": "gulp --gulpfile gulpfile.release.js",
+    "production": "gulp --gulpfile gulpfile.production.js",
     "test": "karma start",
     "start": "gulp",
     "stop": "pkill --signal SIGINT myApp"
