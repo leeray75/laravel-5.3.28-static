@@ -7,32 +7,35 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-System.register("contact", [], function(exports_1, context_1) {
+System.register("user", [], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
-    var Contact;
+    var User;
     return {
         setters:[],
         execute: function() {
-            Contact = (function () {
-                function Contact() {
+            User = (function () {
+                function User() {
+                    this.errors = {
+                        email: "",
+                        password: ""
+                    };
                 }
-                Contact.prototype.reset = function () {
-                    this.name = "";
+                User.prototype.reset = function () {
                     this.email = "";
-                    this.message = "";
+                    this.password = "";
                 };
-                return Contact;
+                return User;
             }());
-            exports_1("Contact", Contact);
+            exports_1("User", User);
         }
     }
 });
-System.register("contact-us.service", ['@angular/core', '@angular/http', 'rxjs/add/operator/toPromise'], function(exports_2, context_2) {
+System.register("login.service", ['@angular/core', '@angular/http', 'rxjs/add/operator/toPromise'], function(exports_2, context_2) {
     "use strict";
     var __moduleName = context_2 && context_2.id;
     var core_1, http_1;
-    var ContactUsService;
+    var LoginService;
     return {
         setters:[
             function (core_1_1) {
@@ -43,81 +46,104 @@ System.register("contact-us.service", ['@angular/core', '@angular/http', 'rxjs/a
             },
             function (_1) {}],
         execute: function() {
-            ContactUsService = (function () {
-                function ContactUsService(http) {
+            LoginService = (function () {
+                function LoginService(http) {
                     this.http = http;
                     this.headers = new http_1.Headers({ 'Content-Type': 'application/json' });
-                    this.apiUrl = 'api/contact'; // URL to web api
+                    this.apiUrl = 'api/login'; // URL to web api
                 }
-                ContactUsService.prototype.handleError = function (error) {
+                LoginService.prototype.handleError = function (error) {
                     console.error('An error occurred', error); // for demo purposes only
                     return Promise.reject(error.message || error);
                 };
-                ContactUsService.prototype.send = function (contact) {
+                LoginService.prototype.send = function (user) {
+                    var userData = {};
+                    userData.email = user.email;
+                    userData.password = user.password;
                     return this.http
-                        .post(this.apiUrl, contact, { headers: this.headers })
+                        .post(this.apiUrl, userData, { headers: this.headers })
                         .toPromise()
                         .then(function (res) { return res.json(); });
                 };
-                ContactUsService = __decorate([
+                LoginService = __decorate([
                     core_1.Injectable(), 
                     __metadata('design:paramtypes', [http_1.Http])
-                ], ContactUsService);
-                return ContactUsService;
+                ], LoginService);
+                return LoginService;
             }());
-            exports_2("ContactUsService", ContactUsService);
+            exports_2("LoginService", LoginService);
         }
     }
 });
-System.register("contact-us.component", ['@angular/core', "contact", "contact-us.service"], function(exports_3, context_3) {
+System.register("login-form.component", ['@angular/core', "user", "login.service"], function(exports_3, context_3) {
     "use strict";
     var __moduleName = context_3 && context_3.id;
-    var core_2, contact_1, contact_us_service_1;
-    var ContactUsComponent;
+    var core_2, user_1, login_service_1;
+    var LoginFormComponent;
     return {
         setters:[
             function (core_2_1) {
                 core_2 = core_2_1;
             },
-            function (contact_1_1) {
-                contact_1 = contact_1_1;
+            function (user_1_1) {
+                user_1 = user_1_1;
             },
-            function (contact_us_service_1_1) {
-                contact_us_service_1 = contact_us_service_1_1;
+            function (login_service_1_1) {
+                login_service_1 = login_service_1_1;
             }],
         execute: function() {
-            ContactUsComponent = (function () {
-                function ContactUsComponent(contactUsService) {
-                    this.contactUsService = contactUsService;
-                    this.contact = new contact_1.Contact();
+            LoginFormComponent = (function () {
+                function LoginFormComponent(loginService) {
+                    this.loginService = loginService;
+                    this.user = new user_1.User();
                     this.alertMessage = "";
                 }
-                ContactUsComponent.prototype.sendEmail = function () {
+                LoginFormComponent.prototype.ngOnInit = function () {
+                    console.log("login form init 3");
+                    this.$loginModal = $('#login-modal').modal('hide');
+                    this.initEventOpener();
+                    this.loginModal = document.getElementById('login-modal');
+                };
+                LoginFormComponent.prototype.initEventOpener = function () {
                     var _this = this;
-                    this.contactUsService
-                        .send(this.contact)
-                        .then(function (response) {
-                        _this.alertMessage = response.message;
-                        _this.contact.reset();
+                    var openEl = document.querySelector('.log-in-link');
+                    console.log("openEl:", openEl);
+                    openEl.addEventListener('click', function (event) {
+                        console.log("click:", event);
+                        console.log("this.loginModal", _this.$loginModal);
+                        _this.$loginModal.modal('show');
                     });
                 };
-                ContactUsComponent = __decorate([
+                LoginFormComponent.prototype.sendLogin = function () {
+                    var _this = this;
+                    this.loginService
+                        .send(this.user)
+                        .then(function (response) {
+                        _this.alertMessage = response.message;
+                        _this.user.reset();
+                    });
+                };
+                __decorate([
+                    core_2.ViewChild('childModal'), 
+                    __metadata('design:type', Object)
+                ], LoginFormComponent.prototype, "childModal", void 0);
+                LoginFormComponent = __decorate([
                     core_2.Component({
-                        selector: 'contact-us',
-                        templateUrl: window.GlobalVariables.app.templateSrc + 'contact-us/contact-us.component.html'
+                        selector: 'login-form',
+                        templateUrl: window.GlobalVariables.app.templateSrc + 'login/login-form.html'
                     }), 
-                    __metadata('design:paramtypes', [contact_us_service_1.ContactUsService])
-                ], ContactUsComponent);
-                return ContactUsComponent;
+                    __metadata('design:paramtypes', [login_service_1.LoginService])
+                ], LoginFormComponent);
+                return LoginFormComponent;
             }());
-            exports_3("ContactUsComponent", ContactUsComponent);
+            exports_3("LoginFormComponent", LoginFormComponent);
         }
     }
 });
-System.register("app.module", ['@angular/core', '@angular/platform-browser', '@angular/forms', '@angular/http', "contact-us.service", "contact-us.component", 'ng2-bootstrap/ng2-bootstrap'], function(exports_4, context_4) {
+System.register("app.module", ['@angular/core', '@angular/platform-browser', '@angular/forms', '@angular/http', "login.service", "login-form.component"], function(exports_4, context_4) {
     "use strict";
     var __moduleName = context_4 && context_4.id;
-    var core_3, platform_browser_1, forms_1, http_2, contact_us_service_2, contact_us_component_1, ng2_bootstrap_1;
+    var core_3, platform_browser_1, forms_1, http_2, login_service_2, login_form_component_1;
     var AppModule;
     return {
         setters:[
@@ -133,14 +159,11 @@ System.register("app.module", ['@angular/core', '@angular/platform-browser', '@a
             function (http_2_1) {
                 http_2 = http_2_1;
             },
-            function (contact_us_service_2_1) {
-                contact_us_service_2 = contact_us_service_2_1;
+            function (login_service_2_1) {
+                login_service_2 = login_service_2_1;
             },
-            function (contact_us_component_1_1) {
-                contact_us_component_1 = contact_us_component_1_1;
-            },
-            function (ng2_bootstrap_1_1) {
-                ng2_bootstrap_1 = ng2_bootstrap_1_1;
+            function (login_form_component_1_1) {
+                login_form_component_1 = login_form_component_1_1;
             }],
         execute: function() {
             AppModule = (function () {
@@ -152,13 +175,12 @@ System.register("app.module", ['@angular/core', '@angular/platform-browser', '@a
                             platform_browser_1.BrowserModule,
                             forms_1.FormsModule,
                             http_2.HttpModule,
-                            ng2_bootstrap_1.AlertModule
                         ],
                         declarations: [
-                            contact_us_component_1.ContactUsComponent
+                            login_form_component_1.LoginFormComponent
                         ],
-                        providers: [contact_us_service_2.ContactUsService],
-                        bootstrap: [contact_us_component_1.ContactUsComponent]
+                        providers: [login_service_2.LoginService],
+                        bootstrap: [login_form_component_1.LoginFormComponent]
                     }), 
                     __metadata('design:paramtypes', [])
                 ], AppModule);

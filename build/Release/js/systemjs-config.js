@@ -9,6 +9,7 @@
             app: isProduction ? '/static/build/Release/js/apps' : '/static/build/dev/js/apps',
             common: isProduction ? '/static/build/Release/js/common' : '/static/build/dev/js/common',
             pages: isProduction ? '/static/build/Release/js/pages' : '/static/build/dev/js/pages',
+            'globals': isProduction ? 'build/Release/js/globals/main.js' : 'build/dev/js/globals/main.js',
             // angular bundles
             '@angular/core': 'npm:@angular/core/bundles/core.umd.js',
             '@angular/common': 'npm:@angular/common/bundles/common.umd.js',
@@ -20,7 +21,7 @@
             '@angular/forms': 'npm:@angular/forms/bundles/forms.umd.js',
             //'@ng-bootstrap/ng-bootstrap': 'npm:@ng-bootstrap/ng-bootstrap/bundles/ng-bootstrap.js',
             'moment': 'npm:moment/moment.js',
-            //'ng2-bootstrap': 'npm:ng2-bootstrap/bundles/ng2-bootstrap.umd.min.js',
+            //'ng2-bootstrap': 'npm:ng2-bootstrap/ng2-bootstrap.js',
             // other libraries
             'rxjs': 'npm:rxjs',
             'angular-in-memory-web-api': 'npm:angular-in-memory-web-api/bundles/in-memory-web-api.umd.js'

@@ -24,7 +24,7 @@ var jspm = require('gulp-jspm');
 
 var htmlmin = require('gulp-html-minifier');
 var _scssFiles = 'src/_scss/**/*.scss';
-
+var _tsFiles = 'src/_ts/**/*.ts';
 
 var tsProject = ts.createProject('tsconfig.json');
 
@@ -58,10 +58,8 @@ gulp.task('sass', function() {
         .pipe(sass().on('error', sass.logError))
         .pipe(gulp.dest('build/dev/css'));
 });
-var _tsFiles = 'src/_ts/**/*.ts';
+
 gulp.task('typescript', function() {
-	console.log("task: typescript");
-	
 	var scriptsPath = './src/_ts/apps';
 	var folders = getFolders(scriptsPath);
 	
@@ -84,7 +82,6 @@ gulp.task('typescript', function() {
 
 //Watch task
 gulp.task('watch', function() {
-	console.log("watch task");
     watch(_scssFiles, function () {
         gulp.start("sass");
     });	
@@ -96,12 +93,10 @@ gulp.task('watch', function() {
 		gulp.start('copy-templates');
 	})
 
-	watch('build/dev/js/lib/**/*.js',function(){
+	watch('build/dev/js/globals/*.js',function(){
 		gulp.start('bundle');
 	})
 });
-
-
 
 gulp.task('clean-dev', function(cb) {
 	return gulp.src('./build/dev/*', { read: false }) // much faster
@@ -110,22 +105,18 @@ gulp.task('clean-dev', function(cb) {
 
 
 gulp.task('copy-fonts', function(cb) {
-	console.log("copy fonts");
   return gulp.src('./src/fonts/**/*')
 	.pipe(gulp.dest('./build/dev/fonts'))
  
 });
 
 gulp.task('copy-templates', function(cb) {
-	console.log("copy templates");
   return gulp.src('./src/templates/**/*')
 	.pipe(gulp.dest('./build/dev/templates'))
 });
 
-
 gulp.task('bundle',function(cb){
-	console.log('jspm: bundling');
-	return gulp.src('build/dev/js/lib/main.js')
+	return gulp.src('build/dev/js/globals/main.js')
 		.pipe(jspm({
 			fileName: 'global'
 		}))
@@ -137,8 +128,6 @@ gulp.task('init',['sass', 'typescript', 'copy-templates','copy-fonts'],function(
 	gulp.start("watch");
 });
 
-
 gulp.task('default', ['clean-dev'],function(){
-	console.log("triggering new tasks");
 	gulp.start('init');
 });

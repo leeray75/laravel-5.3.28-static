@@ -8434,12 +8434,28 @@ System.registerDynamic("github:twbs/bootstrap@3.3.7.js", ["github:twbs/bootstrap
   module.exports = $__require("github:twbs/bootstrap@3.3.7/js/bootstrap.js");
   return module.exports;
 });
-System.register("build/dev/js/lib/main.js", ["github:twbs/bootstrap@3.3.7.js"], function (exports_1, context_1) {
+System.register("build/dev/js/globals/bootstrap.js", ["github:twbs/bootstrap@3.3.7.js"], function (exports_1, context_1) {
     "use strict";
 
     var __moduleName = context_1 && context_1.id;
+    function bootstrap() {}
+    exports_1("bootstrap", bootstrap);
     return {
         setters: [function (_1) {}],
         execute: function () {}
+    };
+});
+System.register("build/dev/js/globals/main.js", ["build/dev/js/globals/bootstrap.js"], function (exports_1, context_1) {
+    "use strict";
+
+    var __moduleName = context_1 && context_1.id;
+    var bootstrap_1;
+    return {
+        setters: [function (bootstrap_1_1) {
+            bootstrap_1 = bootstrap_1_1;
+        }],
+        execute: function () {
+            bootstrap_1.bootstrap();
+        }
     };
 });

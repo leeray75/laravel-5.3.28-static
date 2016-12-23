@@ -82,9 +82,17 @@
   },
   "jspm": {
     "dependencies": {
+      "@angular/compiler": "npm:@angular/compiler@^2.3.0",
+      "@angular/core": "npm:@angular/core@^2.3.0",
+      "@angular/forms": "npm:@angular/forms@^2.3.0",
+      "@angular/http": "npm:@angular/http@^2.3.0",
+      "@angular/platform-browser": "npm:@angular/platform-browser@^2.3.0",
+      "@angular/platform-browser-dynamic": "npm:@angular/platform-browser-dynamic@^2.3.0",
+      "@angular/router": "npm:@angular/router@^3.3.0",
       "bootstrap": "github:twbs/bootstrap@^3.3.7",
       "core-js": "npm:core-js@^2.4.1",
       "jquery": "npm:jquery@^3.1.1",
+      "ng2-bootstrap": "npm:ng2-bootstrap@1.1.13-1",
       "reflect-metadata": "npm:reflect-metadata@^0.1.9",
       "rxjs": "npm:rxjs@^5.0.2",
       "systemjs": "npm:systemjs@^0.19.41",

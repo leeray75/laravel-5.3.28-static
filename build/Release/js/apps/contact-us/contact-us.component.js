@@ -42,7 +42,7 @@ System.register(['@angular/core', './contact', './contact-us.service'], function
                 ContactUsComponent = __decorate([
                     core_1.Component({
                         selector: 'contact-us',
-                        templateUrl: window.GlobalVariables.app.templateSrc + 'contact-us.component.html'
+                        templateUrl: window.GlobalVariables.app.templateSrc + 'contact-us/contact-us.component.html'
                     }), 
                     __metadata('design:paramtypes', [contact_us_service_1.ContactUsService])
                 ], ContactUsComponent);

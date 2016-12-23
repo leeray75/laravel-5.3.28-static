@@ -3,7 +3,7 @@ import { Contact } from './contact';
 import { ContactUsService } from './contact-us.service';
 @Component({
   selector: 'contact-us',
-  templateUrl: window.GlobalVariables.app.templateSrc+'contact-us.component.html'
+  templateUrl: window.GlobalVariables.app.templateSrc+'contact-us/contact-us.component.html'
 })
 export class ContactUsComponent {
   contact = new Contact();

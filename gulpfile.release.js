@@ -106,7 +106,7 @@ gulp.task('copy-css', function(cb) {
 
 gulp.task('bundle',function(cb){
 	console.log('jspm: bundling');
-	return gulp.src('build/Release/js/lib/main.js')
+	return gulp.src('build/Release/js/globals/main.js')
 		.pipe(jspm({
 			fileName: 'global.min',
 			minify: true

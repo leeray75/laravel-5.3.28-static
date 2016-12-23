@@ -3,7 +3,7 @@ export class Contact{
 	email: string;
 	message: string;
 	constructor(){}
-	private reset(): void{
+	reset(): void{
 		this.name="";
 		this.email="";
 		this.message="";
