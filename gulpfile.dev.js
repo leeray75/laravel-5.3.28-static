@@ -24,7 +24,7 @@ var jspm = require('gulp-jspm');
 
 var htmlmin = require('gulp-html-minifier');
 var _scssFiles = 'src/_scss/**/*.scss';
-var _tsFiles = 'src/_ts/**/*.ts';
+
 
 var tsProject = ts.createProject('tsconfig.json');
 
@@ -58,9 +58,10 @@ gulp.task('sass', function() {
         .pipe(sass().on('error', sass.logError))
         .pipe(gulp.dest('build/dev/css'));
 });
-
+var _tsFiles = 'src/_ts/**/*.ts';
 gulp.task('typescript', function() {
 	console.log("task: typescript");
+	
 	var scriptsPath = './src/_ts/apps';
 	var folders = getFolders(scriptsPath);
 	
@@ -80,8 +81,6 @@ gulp.task('typescript', function() {
         .pipe(gulp.dest('build/dev/js'));
 	return merge(tasks, tsTask);
 });
-
-
 
 //Watch task
 gulp.task('watch', function() {

@@ -1,11 +1,12 @@
+import { $ } from 'npm:jquery';
 class Homepage{
   constructor() {}
+
   init(): void{
     this.initClock();
   }
+
   initClock(): void{
-    let clock = $('#clock');
-    console.log('clock:',clock);
     let clockEl = <HTMLElement>document.querySelector('#clock');
     let hoursEl = <HTMLElement>clockEl.querySelector('.hours');
     let minutesEl = <HTMLElement>clockEl.querySelector('.minutes');
@@ -26,10 +27,13 @@ class Homepage{
     transformEl(hoursEl,hoursAngle);
     transformEl(minutesEl,minutesAngle);
     transformEl(secondsEl,secondsAngle);
-
   }
 }
-(function(){
-  let homepage = new Homepage();
+(function(global){
+  global.UIDeliverables = global.UIDeliverables || {};
+  global.UIDeliverables.pages = global.UIDeliverables.pages || {};
+  let homepage = global.UIDeliverables.pages.homepage = new Homepage();
   homepage.init();
-})()
+})(window);
+export Homepage;
+

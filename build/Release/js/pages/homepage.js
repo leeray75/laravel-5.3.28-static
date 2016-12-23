@@ -1,33 +1,44 @@
-var Homepage = (function () {
-    function Homepage() {
-    }
-    Homepage.prototype.init = function () {
-        this.initClock();
-    };
-    Homepage.prototype.initClock = function () {
-        var clock = $('#clock');
-        console.log('clock:', clock);
-        var clockEl = document.querySelector('#clock');
-        var hoursEl = clockEl.querySelector('.hours');
-        var minutesEl = clockEl.querySelector('.minutes');
-        var secondsEl = clockEl.querySelector('.seconds');
-        var date = new Date();
-        var hours = date.getHours();
-        var minutes = date.getMinutes();
-        var seconds = date.getSeconds();
-        var hoursAngle = (hours * 30) + (minutes / 2);
-        var minutesAngle = minutes * 6;
-        var secondsAngle = seconds * 6;
-        function transformEl(el, angle) {
-            el.style.transform = 'rotateZ(' + angle + 'deg)';
+System.register([], function(exports_1, context_1) {
+    "use strict";
+    var __moduleName = context_1 && context_1.id;
+    var Homepage;
+    return {
+        setters:[],
+        execute: function() {
+            Homepage = (function () {
+                function Homepage() {
+                }
+                Homepage.prototype.init = function () {
+                    this.initClock();
+                };
+                Homepage.prototype.initClock = function () {
+                    var clockEl = document.querySelector('#clock');
+                    var hoursEl = clockEl.querySelector('.hours');
+                    var minutesEl = clockEl.querySelector('.minutes');
+                    var secondsEl = clockEl.querySelector('.seconds');
+                    var date = new Date();
+                    var hours = date.getHours();
+                    var minutes = date.getMinutes();
+                    var seconds = date.getSeconds();
+                    var hoursAngle = (hours * 30) + (minutes / 2);
+                    var minutesAngle = minutes * 6;
+                    var secondsAngle = seconds * 6;
+                    function transformEl(el, angle) {
+                        el.style.transform = 'rotateZ(' + angle + 'deg)';
+                    }
+                    transformEl(hoursEl, hoursAngle);
+                    transformEl(minutesEl, minutesAngle);
+                    transformEl(secondsEl, secondsAngle);
+                };
+                return Homepage;
+            }());
+            (function (global) {
+                global.UIDeliverables = global.UIDeliverables || {};
+                global.UIDeliverables.pages = global.UIDeliverables.pages || {};
+                var homepage = global.UIDeliverables.pages.homepage = new Homepage();
+                homepage.init();
+            })(window);
+            Homepage;
         }
-        transformEl(hoursEl, hoursAngle);
-        transformEl(minutesEl, minutesAngle);
-        transformEl(secondsEl, secondsAngle);
-    };
-    return Homepage;
-}());
-(function () {
-    var homepage = new Homepage();
-    homepage.init();
-})();
+    }
+});

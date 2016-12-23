@@ -1,2 +1,2 @@
-import jQuery from 'jquery';
+import {jQuery} from 'npm:jquery';
 import 'bootstrap';
