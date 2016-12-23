@@ -60,7 +60,7 @@ gulp.task('sass', function() {
 
 gulp.task('typescript', function() {
 	console.log("task: typescript");
-	var scriptsPath = './src/_ts/ng2-apps';
+	var scriptsPath = './src/_ts/apps';
 	var folders = getFolders(scriptsPath);
 	
 	var tasks = folders.map(function(folder) {
@@ -70,7 +70,7 @@ gulp.task('typescript', function() {
 		var src = path.join(scriptsPath, folder, '/**/*.ts');
 		  return gulp.src(src)
 			.pipe(tsProject())
-			.pipe(gulp.dest('build/dev/js/ng2-apps/'+folder));    
+			.pipe(gulp.dest('build/dev/js/apps/'+folder));    
 	});
 	
 	tsProject = ts.createProject('tsconfig.json');

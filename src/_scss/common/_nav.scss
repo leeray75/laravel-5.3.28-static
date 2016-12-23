@@ -1,0 +1,124 @@
+#ui-deliverables-nav{
+	.ui-logo {
+	  padding: 2px 10px 2px 10px;
+	  max-width: 50%;
+	  float: left;
+	}
+	.glyphicon {
+	  color: #062a53;
+	}
+	.navbar-nav {
+  		margin: 0px;
+	}
+	.ui-navbar-item{
+		.navbar-brand {
+			padding-top: 4px;
+			padding-bottom: 0px;
+		}
+	}
+	&.navbar-default{
+		.navbar-toggle{
+			.icon-bar{
+				background-color: #cccccc;
+			}
+			&:hover {
+				background: #337ab7;
+				.icon-bar {
+					background-color: #ffffff;
+				}
+			}
+		}
+	}
+	&.navbar-inverse {
+  		background-color: #cccccc;
+  		border-color: #333;
+		.navbar-toggle {
+			color: white;
+			font-weight: bold;
+			background-color: #062a53;
+			border-color: #fff;
+		}
+  		&.navbar-default{
+			.navbar-nav > li > a {
+				color: #062a53;
+				&:hover {
+				  background: #999;
+				  color: #000;
+				}
+				&.navbar-brand{
+					&:hover{
+						background: none;
+					}
+				}
+			 }
+		} // .navbar-default
+
+	} // .navbar-inverse
+	
+	@media (max-width: 991px) {
+	  .ui-logo {
+	    padding: 2px 10px 2px 10px;
+	    width: 30%;
+	    float: left;
+	  }
+	}
+	@media (max-width: 991px) {
+	  .ui-logo-lg {
+	    display: block;
+	  }
+	}
+	@media (max-width: 767px) {
+	  .ui-logo-lg {
+	    display: block;
+	  }
+	}
+	@media (max-width: 370px) {
+	  .ui-logo-lg {
+	    display: none;
+	  }
+	}
+	@media (max-width: 991px) {
+	  .ui-logo-sm {
+	    display: none;
+	  }
+	}
+	@media (max-width: 767px) {
+	  .ui-logo-sm {
+	    display: none;
+	  }
+	}
+	@media (max-width: 370px) {
+	  .ui-logo-sm {
+	    display: block;
+	  }
+	}
+} // #ui-deliverables-nav
+
+
+#collapse {
+  float: right;
+}
+@media (max-width: 767px) {
+  #collapse {
+    float: none;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+  }
+}
+
+@media (max-width: 767px) {
+  #UI-Deliverables-Nav.navbar-inverse .navbar-nav .open .dropdown-menu > li > a {
+    color: #062a53;
+  }
+  #UI-Deliverables-Nav.navbar-inverse .navbar-nav .open .dropdown-menu > li > a:hover {
+    background: #ffffff;
+  }
+}
+
+#ui-deliverables-nav.navbar-inverse .navbar-nav > .open > a,
+.navbar-inverse .navbar-nav > .open > a:hover,
+.navbar-inverse .navbar-nav > .open > a:focus {
+  background-color: #999;
+}
+
